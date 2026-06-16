@@ -102,6 +102,32 @@ const boards = [
       </div>
 
       <div class="pane-content-area portfolio-split-layout">
+        <!-- SVG Connector Line Overlay -->
+        <svg class="portfolio-connector-svg" id="portfolio-connector-svg">
+          <defs>
+            <marker
+              id="arrowhead"
+              viewBox="0 0 10 10"
+              refX="8"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 2 L 8 5 L 0 8 z" fill="var(--header-color)" />
+            </marker>
+          </defs>
+          <path
+            id="connector-path"
+            fill="none"
+            stroke="var(--header-color)"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            marker-end="url(#arrowhead)"
+          />
+        </svg>
+
         <!-- Left Side: Content Menu -->
         <div class="portfolio-left-col">
           <div class="pane-header">
@@ -118,7 +144,7 @@ const boards = [
                 data-cursor="view"
               >
                 <span class="project-tag">{study.discipline}</span>
-                <span class="project-name">{study.title} &rarr;</span>
+                <span class="project-name">{study.title}</span>
               </a>
             ))}
           </div>
@@ -303,6 +329,7 @@ const boards = [
     width: 100%;
     height: 100%;
     gap: 4rem;
+    position: relative; /* Create positioning context for absolute SVG child */
   }
 
   .portfolio-left-col {
@@ -330,13 +357,13 @@ const boards = [
     height: 240px;
     transform: translateY(-50%) translateX(60px) scale(0.9);
     opacity: 0;
-    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+    border: 1.5px solid var(--header-color); /* Sharp, premium border ring */
     overflow: hidden;
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1), 
                 opacity 0.6s ease;
     z-index: 1;
     pointer-events: none;
-    border: 1px solid var(--border-color);
   }
 
   .portfolio-circular-frame.active {
@@ -349,6 +376,26 @@ const boards = [
     height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+
+  /* SVG Connector Line Styles */
+  .portfolio-connector-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  #connector-path {
+    opacity: 0;
+    transition: opacity 0.15s ease, stroke-dashoffset 0.45s cubic-bezier(0.25, 1, 0.3, 1);
+  }
+
+  #connector-path.active {
+    opacity: 1;
   }
 
   .pane-title {
@@ -366,14 +413,13 @@ const boards = [
   .work-menu-link {
     display: flex;
     flex-direction: column;
-    border-bottom: 0.5px solid var(--border-color);
-    padding-bottom: 1rem;
-    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.8s ease;
+    align-self: flex-start; /* Shrink-wrap to content width */
+    width: fit-content;
+    transition: color 0.3s ease;
   }
 
-  .work-menu-link:hover {
-    padding-left: 1rem;
-    border-color: var(--header-color);
+  .work-menu-link:hover .project-name {
+    opacity: 0.75;
   }
 
   .project-tag {
@@ -703,15 +749,88 @@ const boards = [
     }
   }
 
+  // 4. SVG Connector Line Drawing Script
+  function setupConnectorLines() {
+    const layout = document.querySelector('.portfolio-split-layout');
+    const svg = document.getElementById('portfolio-connector-svg');
+    const path = document.getElementById('connector-path');
+    const links = document.querySelectorAll('[data-project-hover]');
+    const rightCol = document.querySelector('.portfolio-right-col');
+
+    if (!layout || !svg || !path || !rightCol) return;
+
+    let animFrameId: number | null = null;
+
+    function updatePath(el: HTMLElement) {
+      if (window.innerWidth <= 768) {
+        clearPath();
+        return;
+      }
+
+      const layoutRect = layout!.getBoundingClientRect();
+      const rightColRect = rightCol!.getBoundingClientRect();
+      const nameEl = el.querySelector('.project-name');
+      if (!nameEl) return;
+
+      const nameRect = nameEl.getBoundingClientRect();
+
+      // starts 12px to the right of the actual text boundary
+      const x1 = nameRect.right - layoutRect.left + 12;
+      const y1 = (nameRect.top + nameRect.bottom) / 2 - layoutRect.top;
+
+      // The circle left edge is statically positioned exactly 16px to the right of the rightCol boundary.
+      // We point 10px to the left of the circle edge (which is at +16px).
+      const x2 = rightColRect.left - layoutRect.left + 16 - 10;
+      const y2 = (rightColRect.top + rightColRect.bottom) / 2 - layoutRect.top;
+
+      // Orthogonal connector path: goes horizontally halfway, bends 90 deg vertically, and then horizontally to the target
+      const x_mid = x1 + (x2 - x1) * 0.45;
+
+      const d = `M ${x1} ${y1} H ${x_mid} V ${y2} H ${x2}`;
+      path!.setAttribute('d', d);
+
+      // Measure SVG path length
+      const length = (path as any).getTotalLength();
+      const pathStyle = (path as HTMLElement).style;
+      
+      // Set starting dasharray & dashoffset to full path length
+      pathStyle.strokeDasharray = `${length}`;
+      pathStyle.strokeDashoffset = `${length}`;
+      path!.classList.add('active');
+
+      // Cancel any pending animation frames
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+
+      // Force drawing animation on the next paint cycle
+      animFrameId = requestAnimationFrame(() => {
+        animFrameId = requestAnimationFrame(() => {
+          pathStyle.strokeDashoffset = '0';
+        });
+      });
+    }
+
+    function clearPath() {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+      path!.classList.remove('active');
+    }
+
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', () => updatePath(link as HTMLElement));
+      link.addEventListener('mouseleave', clearPath);
+    });
+  }
+
   // Bind initial interactions
   setupProjectBgHover();
   setupFolioAccordion();
   routeFolioPanes();
+  setupConnectorLines();
 
   // Re-bind bindings after Astro page swaps
   document.addEventListener('astro:after-swap', () => {
     setupProjectBgHover();
     setupFolioAccordion();
     routeFolioPanes();
+    setupConnectorLines();
   });
 </script>

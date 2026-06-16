@@ -53,6 +53,15 @@ const isHome = pathname === '/' || pathname === '';
       } else {
         document.documentElement.classList.remove('no-preload-theme');
       }
+
+      if (!window.hasPreloadListener) {
+        document.addEventListener('astro:before-swap', (ev) => {
+          if (window.kubanyIntroPlayed === true) {
+            ev.newDocument.documentElement.classList.add('no-preload-theme');
+          }
+        });
+        window.hasPreloadListener = true;
+      }
     </script>
 
     <style>
