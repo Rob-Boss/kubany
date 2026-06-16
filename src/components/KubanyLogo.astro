@@ -1,0 +1,135 @@
+---
+/**
+ * KubanyLogo — her wordmark traced to vector (from the original GIF) plus the
+ * box rebuilt as a self-drawing stroke. Transparent + recolorable: set `color`
+ * on a parent and both the letters (fill) and box (stroke) follow via
+ * currentColor. Animation plays once when it scrolls into view; the box draws
+ * in the same single-stroke direction as the GIF while the letters rise in.
+ */
+interface Props { width?: number; class?: string; title?: string; }
+const { width = 150, class: cls = "", title = "Kubany" } = Astro.props;
+---
+
+<span class={`kb-logo ${cls}`} style={`width:${width}px`}>
+  <svg viewBox="58 37 384 120" role="img" aria-label={title} fill="currentColor">
+      <g class="kb-ltr" style="animation-delay:0ms">
+        <g transform="translate(91,127) scale(0.1,-0.1)"><path d="M22 293 l3 -268 23 -3 c21 -3 22 -1 22 83 l0 86 49 52 49 52 24 -30 c12 -16 59 -76 103 -134 65 -85 87 -107 109 -109 39 -5 35 3 -81 154 -55 71 -103 135 -107 143 -6 9 25 47 105 127 l114 114 -35 0 c-31 0 -49 -14 -182 -147 l-148 -148 0 148 0 147 -25 0 -25 0 2 -267z"/></g>
+      </g>
+      <g class="kb-ltr" style="animation-delay:70ms">
+        <g transform="translate(141,127) scale(0.1,-0.1)"><path d="M20 405 c0 -84 5 -177 11 -204 42 -198 297 -240 404 -67 l30 49 3 189 4 188 -26 0 -26 0 0 -172 c0 -146 -3 -179 -19 -213 -58 -126 -222 -139 -299 -23 -27 41 -27 44 -30 225 l-4 183 -24 0 -24 0 0 -155z"/></g>
+      </g>
+      <g class="kb-ltr" style="animation-delay:140ms">
+        <g transform="translate(200,127) scale(0.1,-0.1)"><path d="M20 290 l0 -270 113 0 c185 0 237 29 245 139 4 56 3 60 -32 99 -28 31 -33 41 -21 46 51 19 71 134 35 194 -31 51 -71 62 -215 62 l-125 0 0 -270z m285 195 c35 -34 35 -106 0 -140 -23 -23 -31 -25 -130 -25 l-105 0 0 95 0 95 105 0 c99 0 107 -2 130 -25z m1 -248 c34 -40 33 -105 -2 -138 -23 -22 -36 -24 -130 -27 l-104 -4 0 102 0 102 106 -4 c102 -3 107 -4 130 -31z"/></g>
+      </g>
+      <g class="kb-ltr" style="animation-delay:210ms">
+        <g transform="translate(244,127) scale(0.1,-0.1)"><path d="M142 298 c-67 -145 -122 -266 -122 -270 0 -5 10 -8 23 -8 19 0 29 12 52 60 l29 60 167 0 168 0 27 -60 c22 -49 31 -60 50 -60 13 0 24 4 24 9 0 6 -55 127 -121 270 -161 344 -136 345 -297 -1z m217 55 c35 -75 65 -143 68 -150 4 -10 -24 -13 -137 -13 -110 0 -141 3 -137 13 25 63 132 287 137 287 3 0 34 -62 69 -137z"/></g>
+      </g>
+      <g class="kb-ltr" style="animation-delay:280ms">
+        <g transform="translate(308,127) scale(0.1,-0.1)"><path d="M22 293 l3 -268 23 -3 22 -3 0 226 c0 129 4 225 9 223 5 -1 91 -102 192 -223 150 -179 189 -220 209 -220 l25 0 3 268 2 267 -25 0 -25 0 0 -225 c0 -124 -3 -225 -7 -224 -5 0 -91 101 -193 225 -160 195 -188 224 -212 224 l-28 0 2 -267z"/></g>
+      </g>
+      <g class="kb-ltr" style="animation-delay:350ms">
+        <g transform="translate(367,127) scale(0.1,-0.1)"><path d="M20 554 c0 -3 47 -73 105 -155 l105 -150 0 -115 c0 -114 0 -115 23 -112 21 3 22 7 25 122 l3 118 71 102 c39 55 87 123 106 149 l35 48 -33 -3 c-30 -3 -42 -15 -117 -123 -46 -66 -87 -121 -91 -122 -4 -1 -45 54 -92 122 -74 108 -89 125 -112 125 -16 0 -28 -3 -28 -6z"/></g>
+      </g>
+      <path class="kb-box-left" pathLength="2132" fill="none" stroke="currentColor"
+        stroke-width="3" stroke-linejoin="miter" d="M -1600 47 H 432 V 147" />
+      <path class="kb-box-right" pathLength="2132" fill="none" stroke="currentColor"
+        stroke-width="3" stroke-linejoin="miter" d="M 2100 147 H 68 V 47" />
+  </svg>
+</span>
+
+<style>
+  .kb-logo { 
+    display: inline-block; 
+    line-height: 0;
+    transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                color 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .kb-logo svg { width: 100%; height: auto; overflow: visible; }
+
+  .kb-ltr { opacity: 0; transform: translateY(7px); }
+  .kb-box-left, .kb-box-right { 
+    stroke-dasharray: 0 2132; 
+    stroke-dashoffset: 0; 
+  }
+
+  .kb-logo.is-in .kb-ltr {
+    animation: kb-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .kb-logo.is-in .kb-box-left,
+  .kb-logo.is-in .kb-box-right {
+    animation: kb-draw-box 1.2s cubic-bezier(0.25, 1, 0.35, 1) forwards;
+    animation-delay: 0.65s;
+  }
+
+  /* Trigger white glow on the logo as the lines finish */
+  .kb-logo.is-in {
+    animation: kb-glow 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 1.85s;
+  }
+
+  @keyframes kb-rise { to { opacity: 1; transform: translateY(0); } }
+
+  @keyframes kb-draw-box {
+    0% {
+      stroke-dasharray: 0 2132;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 2132 2132;
+      stroke-dashoffset: 0;
+    }
+    68% {
+      stroke-dasharray: 464 2132;
+      stroke-dashoffset: -1668;
+    }
+    100% {
+      stroke-dasharray: 464 2132;
+      stroke-dashoffset: -1668;
+    }
+  }
+
+  @keyframes kb-glow {
+    0% {
+      filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+      color: var(--header-color);
+    }
+    35% {
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 1)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+      color: #FFFFFF;
+    }
+    100% {
+      filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+      color: #FDFBF7; /* Same color as shutter background to dissolve */
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kb-ltr { opacity: 1; transform: none; animation: none !important; }
+    .kb-box-left, .kb-box-right { 
+      stroke-dasharray: 464 2532; 
+      stroke-dashoffset: -2068; 
+      animation: none !important; 
+    }
+  }
+</style>
+
+<script>
+  function setupLogoAnimation() {
+    const obs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-in");
+          obs.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.2 });
+    
+    document.querySelectorAll(".kb-logo").forEach((el) => obs.observe(el));
+  }
+
+  // Initial load setup
+  setupLogoAnimation();
+
+  // Astro page navigation swap setup
+  document.addEventListener("astro:after-swap", setupLogoAnimation);
+</script>

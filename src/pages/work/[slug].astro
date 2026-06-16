@@ -1,0 +1,339 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { caseStudies, getCaseStudy } from '../../data/caseStudies';
+
+export function getStaticPaths() {
+  return caseStudies.map(study => ({
+    params: { slug: study.slug },
+    props: { study }
+  }));
+}
+
+const { study } = Astro.props;
+
+// Find next study for navigation at the bottom
+const currentIndex = caseStudies.findIndex(s => s.slug === study.slug);
+const nextStudy = caseStudies[(currentIndex + 1) % caseStudies.length];
+---
+
+<BaseLayout title={`${study.title} — KUBANY`} description={study.summary}>
+  <main class="case-study-detail">
+    <!-- Header Section -->
+    <header class="work-header wrap reveal">
+      <div class="meta-row">
+        <span class="discipline-tag">{study.discipline}</span>
+        {study.year && <span class="year-tag">{study.year}</span>}
+      </div>
+      <h1 class="project-title">{study.title}</h1>
+    </header>
+
+    <!-- Content Split Grid Pane Section -->
+    <section class="work-content wrap">
+      <div class="corner-annotation">[ SEC. 01 // OVERVIEW ]</div>
+      <div class="grid-pane">
+        <!-- Sticky left project specs -->
+        <div class="grid-pane-left spec-col reveal">
+          <div class="spec-group">
+            <span class="spec-label">[ ROLE_DEFINED ]</span>
+            <p class="spec-value">{study.role}</p>
+          </div>
+          
+          {study.coverage && study.coverage.length > 0 && (
+            <div class="spec-group coverage-spec">
+              <span class="spec-label">[ COVERAGE_HIGHLIGHTS ]</span>
+              <ul class="coverage-spec-list">
+                {study.coverage.map((outlet) => (
+                  <li class="coverage-spec-item">{outlet}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        
+        <!-- Right content column -->
+        <div class="grid-pane-right content-col reveal">
+          <!-- Hero Image -->
+          <div class="hero-image-wrapper hover-zoom">
+            <span class="image-annotation">[ HERO_FRAME ]</span>
+            <img src={study.hero.src} alt={study.hero.alt} />
+          </div>
+
+          <!-- Lede summary -->
+          <div class="lede-summary-block">
+            <p class="lede-text">{study.summary}</p>
+          </div>
+
+          <!-- Description Narrative -->
+          <div class="narrative-body">
+            {study.body.map((paragraph) => (
+              <p class="narrative-p">{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Staggered visual media gallery -->
+    {study.gallery && study.gallery.length > 0 && (
+      <section class="gallery-section wrap">
+        <div class="corner-annotation">[ SEC. 02 // PRESS_GALLERY ]</div>
+        <div class="gallery-grid-pane">
+          {study.gallery.map((img, index) => (
+            <figure class={`gallery-item reveal ${index % 2 === 0 ? 'even' : 'odd'}`}>
+              <div class="gallery-img-wrapper hover-zoom">
+                <img src={img.src} alt={img.alt} loading="lazy" />
+              </div>
+              {img.caption && <figcaption class="gallery-caption">{img.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Bottom Navigation -->
+    <nav class="project-nav wrap reveal">
+      <div class="corner-annotation">[ SEC. 03 // NAVIGATION ]</div>
+      <a href="/work" class="back-link animated-underline">&larr; All Projects</a>
+      <div class="next-project-teaser">
+        <span class="teaser-label">Next Project</span>
+        <a href={`/work/${nextStudy.slug}`} class="next-link animated-underline">
+          {nextStudy.title} &rarr;
+        </a>
+      </div>
+    </nav>
+  </main>
+</BaseLayout>
+
+<style>
+  .case-study-detail {
+    padding-bottom: clamp(4rem, 10vw, 8rem);
+  }
+
+  /* Header Styles */
+  .work-header {
+    padding-top: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .project-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    color: var(--header-color);
+    line-height: 1.05;
+  }
+
+  /* Grid details */
+  .work-content {
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .spec-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .spec-group {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+  }
+
+  .spec-label {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .spec-value {
+    font-size: var(--step-0);
+    line-height: 1.5;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  .coverage-spec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .coverage-spec-item {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+  }
+
+  /* Content Column */
+  .hero-image-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    box-shadow: 0 10px 30px rgba(61, 82, 69, 0.04);
+  }
+
+  .hero-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-annotation {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--sand-color);
+    z-index: 5;
+    background-color: var(--bg-color);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .lede-summary-block {
+    margin-bottom: 2rem;
+  }
+
+  .lede-text {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    line-height: 1.45;
+    color: var(--header-color);
+  }
+
+  .narrative-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+  }
+
+  .narrative-p {
+    font-size: var(--step-0);
+    line-height: 1.7;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  /* Press Gallery Section */
+  .gallery-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .gallery-grid-pane {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(2rem, 5vw, 6rem);
+    align-items: start;
+  }
+
+  .gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Staggered cards details */
+  .gallery-item.odd {
+    margin-top: clamp(2rem, 6vw, 8rem);
+  }
+
+  .gallery-img-wrapper {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+
+  .gallery-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-caption {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+    font-style: italic;
+  }
+
+  /* Navigation */
+  .project-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+  }
+
+  .next-project-teaser {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+
+  .teaser-label {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+  }
+
+  .next-link {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+    font-weight: 400;
+  }
+
+  /* Responsive styles */
+  @media (max-width: 48rem) {
+    .spec-col {
+      gap: 1.5rem;
+    }
+    
+    .hero-image-wrapper {
+      aspect-ratio: 4 / 3;
+    }
+    
+    .gallery-grid-pane {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .gallery-item.odd {
+      margin-top: 0;
+    }
+  }
+</style>

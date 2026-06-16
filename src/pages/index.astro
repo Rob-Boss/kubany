@@ -1,0 +1,669 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { caseStudies } from '../data/caseStudies';
+
+// Verbatim copy from KUBANY brand assets
+const headline =
+  "The common thread in all of our work is the profound belief in the power of beauty in the built and designed environment to improve the world.";
+const mission =
+  "KUBANY is a strategic communications agency founded on the principle that a better designed environment benefits us all.";
+const positioning =
+  "By heightening the dialogue around culture, beauty and design, KUBANY believes that these topics will then become an indelible part of contemporary discourse. Deeply rooted in culture and savvy about the media, KUBANY has a long history of creating and communicating powerful ideas.";
+
+const servicesIntro =
+  "We are a full-service communications firm with capabilities across traditional public relations, content creation, creative strategy and social media strategy.";
+
+const services = [
+  { 
+    id: "01",
+    title: "Media Relations", 
+    body: "KUBANY excels at creating and executing fully integrated communications campaigns that influence audiences locally, nationally, and internationally." 
+  },
+  { 
+    id: "02",
+    title: "Online Strategy", 
+    body: "Social media is no longer optional. We approach online engagement as a vital and integral part of any communications strategy." 
+  },
+  { 
+    id: "03",
+    title: "Brand Engagement", 
+    body: "In a noisy world, those brands that are highly disciplined about their messages are the ones that prevail." 
+  },
+  { 
+    id: "04",
+    title: "Creative Services", 
+    body: "With a creative spirit, KUBANY makes connections and forges partnerships to further the goals of brands and firms." 
+  },
+  { 
+    id: "05",
+    title: "Content Creation", 
+    body: "We believe that words matter and that a rigorous set of messages is the best way to achieve broad awareness." 
+  },
+  { 
+    id: "06",
+    title: "Crisis Consulting", 
+    body: "Within every crisis lies the possibility of opportunity. We provide steady, strategic guidance during critical moments." 
+  },
+];
+
+const bioLead =
+  "Elizabeth Kubany’s work begins with her lifelong belief in the power of architecture, design, and art to make the world a better, more beautiful, and more equitable place. For more than two decades, her work in communications has reflected this profound passion for all aspects of visual culture. She has been an engaged and informed participant in the cultural community for years and possesses a breadth and depth of awareness that has proven invaluable to her clients.";
+
+const bioRest = [
+  "Her client roster is an international group that includes cultural institutions and foundations, art galleries, architects, developers, designers of all types, and artists, but the work itself is based on relationships – both with her clients and the media. The merging of intimate client connections and her long-standing media networks, with her deep expertise in the subject matter, enable Liz to tell her partners’ stories strategically and with nuance that extends far beyond press releases, sound bites, or bullet points.",
+  "Liz defines public relations in the broadest way possible – including all aspects of communication, digital and social media strategy, brand awareness, and market penetration and expansion – all within the context of business development. Ultimately her success is inextricably tied to her clients’ success.",
+  "She studied architecture and art/architectural history as an undergraduate at Columbia College and received her Master’s degree in architectural history and theory from the Architectural Association in London. Liz currently serves on the boards of the National Academy of Design, Open House New York, The New York Review of Architecture and Archnative.com."
+];
+
+const boards = [
+  "National Academy of Design",
+  "Open House New York",
+  "The New York Review of Architecture",
+  "Archnative.com"
+];
+---
+
+<BaseLayout 
+  title="KUBANY — Strategic Communications for Design & Architecture"
+  description={mission}
+>
+  <main class="canvas-wrapper">
+    <!-- COLUMN 1: Brand Pane -->
+    <div class="canvas-column pane-brand active">
+      <div class="pane-tab-handle">
+        <span class="handle-num">01</span>
+        <span class="handle-title">Firm</span>
+        <span class="handle-line"></span>
+      </div>
+      
+      <div class="pane-content-area">
+        <div class="brand-header">
+          <p class="brand-title">KUBANY</p>
+          <p class="brand-tagline">Strategic Communications</p>
+        </div>
+
+        <div class="brand-content">
+          <h1 class="main-headline">{headline}</h1>
+          <p class="main-mission">{mission}</p>
+        </div>
+
+        <div class="brand-meta">
+          <p class="meta-label">Est. 2002 // New York City</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 2: Selected Work Pane (Dynamic Image Reveal on Hover) -->
+    <div class="canvas-column pane-work">
+      <div class="pane-tab-handle">
+        <span class="handle-num">02</span>
+        <span class="handle-title">Portfolio</span>
+        <span class="handle-line"></span>
+      </div>
+      
+      <!-- Dynamic Background Images (Faded in on Hover) -->
+      <div class="pane-bg-wrapper">
+        {caseStudies.map((study) => (
+          <div 
+            class="pane-bg-image" 
+            id={`bg-${study.slug}`} 
+            style={`background-image: url('${study.hero.src}');`}
+          ></div>
+        ))}
+      </div>
+
+      <div class="pane-content-area">
+        <div class="pane-header">
+          <p class="eyebrow">Projects</p>
+          <h2 class="pane-title">Selected Work</h2>
+        </div>
+
+        <div class="work-menu">
+          {caseStudies.map((study) => (
+            <a 
+              href={`/work/${study.slug}`} 
+              class="work-menu-link" 
+              data-project-hover={study.slug}
+              data-cursor="view"
+            >
+              <span class="project-tag">{study.discipline}</span>
+              <span class="project-name">{study.title} &rarr;</span>
+            </a>
+          ))}
+        </div>
+
+        <div class="pane-footer">
+          <p class="all-work-btn">Selected Case Studies Menu</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 3: Expertise Pane (Hover Accordion) -->
+    <div class="canvas-column pane-services">
+      <div class="pane-tab-handle">
+        <span class="handle-num">03</span>
+        <span class="handle-title">Capabilities</span>
+        <span class="handle-line"></span>
+      </div>
+
+      <div class="pane-content-area">
+        <div class="pane-header">
+          <p class="eyebrow">Expertise</p>
+          <h2 class="pane-title">Our Services</h2>
+          <p class="services-intro">{servicesIntro}</p>
+        </div>
+
+        <div class="services-accordion">
+          {services.map((service) => (
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <span class="item-id">{service.id}</span>
+                <h3 class="item-title">{service.title}</h3>
+              </div>
+              <div class="accordion-content">
+                <p class="item-body">{service.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="pane-footer">
+          <p class="services-meta">Integrated ecosystems for design leadership</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 4: Biography Pane -->
+    <div class="canvas-column pane-bio">
+      <div class="pane-tab-handle">
+        <span class="handle-num">04</span>
+        <span class="handle-title">Principal</span>
+        <span class="handle-line"></span>
+      </div>
+
+      <div class="pane-content-area">
+        <div>
+          <div class="pane-header">
+            <p class="eyebrow">The Founder</p>
+            <h2 class="pane-title">Elizabeth Kubany</h2>
+          </div>
+
+          <div class="bio-teaser hover-zoom">
+            <span class="image-annotation">[ LIZ_KUBANY // STUDIO ]</span>
+            <img src="/assets/elizabeth-studio.jpg" alt="Elizabeth Kubany" />
+          </div>
+
+          <div class="bio-text-block">
+            <p class="bio-teaser-text">{bioLead}</p>
+            {bioRest.map((p) => (
+              <p class="bio-paragraph">{p}</p>
+            ))}
+          </div>
+        </div>
+
+        <div class="boards-box">
+          <p class="boards-title">[ BOARD_AFFILIATIONS ]</p>
+          <ul class="boards-list">
+            {boards.map(b => (
+              <li class="board-item">{b}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMN 5: Connect Pane -->
+    <div class="canvas-column pane-contact">
+      <div class="pane-tab-handle">
+        <span class="handle-num">05</span>
+        <span class="handle-title">Connect</span>
+        <span class="handle-line"></span>
+      </div>
+
+      <div class="pane-content-area">
+        <div class="pane-header">
+          <p class="eyebrow">Inquiries</p>
+          <h2 class="pane-title">Get In Touch</h2>
+        </div>
+
+        <div class="contact-pitch">
+          <p class="pitch-title">Let's build your story.</p>
+          <p class="pitch-text">We connect intimate client relationships and long-standing media networks to tell partners' stories with absolute clarity.</p>
+        </div>
+
+        <div class="contact-links-box">
+          <a href="mailto:elizabeth@kubany.co" class="big-email-btn">elizabeth@kubany.co</a>
+          
+          <div class="contact-channels">
+            <a href="https://www.instagram.com/elizabethkubany/" target="_blank" rel="noopener noreferrer" class="channel-link animated-underline">Instagram</a>
+            <a href="https://www.linkedin.com/in/lizkubany/" target="_blank" rel="noopener noreferrer" class="channel-link animated-underline">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Column 1: Brand */
+  .brand-header {
+    margin-bottom: 2rem;
+  }
+  
+  .brand-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    letter-spacing: 0.05em;
+    color: var(--header-color);
+  }
+
+  .brand-tagline {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .main-headline {
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    line-height: 1.35;
+    color: var(--header-color);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  .main-mission {
+    font-size: var(--step-0);
+    line-height: 1.6;
+    opacity: 0.85;
+    font-weight: 300;
+  }
+
+  .brand-meta {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+  }
+
+  /* Column 2: Portfolio Menu & Dynamic BG */
+  .pane-work {
+    z-index: 10;
+  }
+
+  .pane-bg-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .pane-bg-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .pane-title {
+    font-size: var(--step-3);
+    color: var(--header-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .work-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .work-menu-link {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 0.5px solid var(--border-color);
+    padding-bottom: 1rem;
+    transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.8s ease;
+  }
+
+  .work-menu-link:hover {
+    padding-left: 1rem;
+    border-color: var(--header-color);
+  }
+
+  .project-tag {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .project-name {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+  }
+
+  .all-work-btn {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+  }
+
+  /* Column 3: Capabilities Accordion */
+  .services-intro {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    opacity: 0.8;
+    font-weight: 300;
+  }
+
+  .services-accordion {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+  }
+
+  .accordion-item {
+    border-bottom: 0.5px solid var(--border-color);
+    padding-block: 1rem;
+    overflow: hidden;
+  }
+
+  .accordion-item:first-child {
+    padding-top: 0;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .item-id {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+  }
+
+  .item-title {
+    font-size: var(--step-0);
+    color: var(--header-color);
+    font-weight: 400;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .item-body {
+    font-size: var(--step--1);
+    line-height: 1.6;
+    opacity: 0.8;
+    padding-top: 0.75rem;
+    padding-left: 3.25rem;
+    font-weight: 300;
+  }
+
+  /* Trigger accordion open on hover of items */
+  .accordion-item:hover .accordion-content {
+    max-height: 150px;
+  }
+
+  .services-meta {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+  }
+
+  /* Column 4: Biography Pane */
+  .bio-teaser {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .bio-teaser img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+
+  .bio-text-block {
+    margin-bottom: 2rem;
+  }
+
+  .bio-teaser-text {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    line-height: 1.55;
+    color: var(--header-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .bio-paragraph {
+    font-size: var(--step--1);
+    line-height: 1.6;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .boards-box {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .boards-title {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .boards-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .board-item {
+    font-family: var(--font-sans);
+    font-size: var(--step--1);
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+
+  /* Column 5: Connect */
+  .contact-pitch {
+    margin-bottom: 2rem;
+  }
+
+  .pitch-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    color: var(--header-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .pitch-text {
+    font-size: var(--step--1);
+    line-height: 1.6;
+    opacity: 0.85;
+    font-weight: 300;
+  }
+
+  .contact-links-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .big-email-btn {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--bg-color);
+    background-color: var(--header-color);
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--header-color);
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .big-email-btn:hover {
+    background-color: transparent;
+    color: var(--header-color);
+  }
+
+  .contact-channels {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .channel-link {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Pullquote Band */
+  .pullquote-band {
+    display: none; /* Hidden on desktop canvas wrapper layout */
+  }
+
+  /* Mobile responsive styling overrides */
+  @media (max-width: 48rem) {
+    .pullquote-band {
+      display: block;
+      background-color: var(--header-color);
+      color: var(--bg-color);
+      text-align: center;
+      padding-block: 4rem;
+    }
+    
+    .pullquote-container {
+      width: 90%;
+      margin-inline: auto;
+    }
+    
+    .pullquote-text {
+      font-family: var(--font-serif);
+      font-size: var(--step-2);
+      font-style: italic;
+    }
+    
+    .work-menu-link:hover {
+      padding-left: 0;
+    }
+
+    .accordion-content {
+      max-height: 150px; /* Fully expanded on mobile */
+    }
+
+    .big-email-btn {
+      padding: 0.85rem 1.25rem;
+      font-size: var(--step-0);
+    }
+  }
+</style>
+
+<script>
+  // 1. Dynamic Hover-Revealed Project Background Overlay Script
+  function setupProjectBgHover() {
+    document.querySelectorAll('[data-project-hover]').forEach((el) => {
+      const slug = el.getAttribute('data-project-hover');
+      const bg = document.getElementById(`bg-${slug}`);
+
+      if (!bg) return;
+
+      el.addEventListener('mouseenter', () => {
+        bg.style.opacity = '0.12';
+        bg.style.transform = 'scale(1.03)';
+      });
+
+      el.addEventListener('mouseleave', () => {
+        bg.style.opacity = '0';
+        bg.style.transform = 'scale(1)';
+      });
+    });
+  }
+
+  // 2. Folio Accordion Toggle Script
+  function setupFolioAccordion() {
+    const columns = document.querySelectorAll('.canvas-column');
+    
+    columns.forEach((col) => {
+      col.addEventListener('click', (e) => {
+        // If clicking a link/button/interactive element inside the active column, do nothing
+        if (col.classList.contains('active')) {
+          return;
+        }
+
+        // Deactivate other columns
+        columns.forEach((c) => c.classList.remove('active'));
+        
+        // Activate this column
+        col.classList.add('active');
+      });
+    });
+  }
+
+  // 3. Folio URL Parameter Routing Script
+  function routeFolioPanes() {
+    const params = new URLSearchParams(window.location.search);
+    const target = params.get('pane');
+    if (!target) return;
+
+    const paneMap: Record<string, string> = {
+      'portfolio': '.pane-work',
+      'services': '.pane-services',
+      'about': '.pane-bio',
+      'contact': '.pane-contact'
+    };
+
+    const targetClass = paneMap[target.toLowerCase()];
+    if (!targetClass) return;
+
+    const columns = document.querySelectorAll('.canvas-column');
+    const targetCol = document.querySelector(targetClass);
+
+    if (targetCol && !targetCol.classList.contains('active')) {
+      columns.forEach((c) => c.classList.remove('active'));
+      targetCol.classList.add('active');
+      
+      // Wait for intro shutter split before scrolling into focus
+      setTimeout(() => {
+        targetCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, 1800);
+    }
+  }
+
+  // Bind initial interactions
+  setupProjectBgHover();
+  setupFolioAccordion();
+  routeFolioPanes();
+
+  // Re-bind bindings after Astro page swaps
+  document.addEventListener('astro:after-swap', () => {
+    setupProjectBgHover();
+    setupFolioAccordion();
+    routeFolioPanes();
+  });
+</script>

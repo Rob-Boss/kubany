@@ -1,0 +1,207 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import KubanyLogo from '../components/KubanyLogo.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "KUBANY — Strategic Communications", 
+  description = "KUBANY is a strategic communications agency founded on the principle that a better designed environment benefits us all." 
+} = Astro.props;
+
+const { pathname } = Astro.url;
+const isHome = pathname === '/' || pathname === '';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/KubanyLogoWhite2.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/assets/center-art-landscape.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="/assets/center-art-landscape.jpg" />
+
+    <ClientRouter />
+
+    <!-- Inline Script to prevent preloader flash on internal page transitions -->
+    <script is:inline>
+      if (window.kubanyIntroPlayed === true) {
+        document.documentElement.classList.add('no-preload-theme');
+      } else {
+        document.documentElement.classList.remove('no-preload-theme');
+      }
+    </script>
+
+    <style>
+      /* Inline override rule for skipped preloader */
+      :global(.no-preload-theme) :global(.preloader-overlay) {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class={isHome ? "is-home" : ""}>
+    <!-- Full-Screen Shutter Preloader Overlay -->
+    <div class="preloader-overlay" id="preloader-overlay">
+      <div class="shutter-panel shutter-top"></div>
+      <div class="shutter-panel shutter-bottom"></div>
+      
+      <div class="preloader-logo-wrapper">
+        <KubanyLogo width={220} class="preloader-logo" />
+      </div>
+    </div>
+
+    <!-- Architectural Grid Lines Overlay -->
+    <div class="grid-lines-wrapper">
+      <div class="v-line v-line-left"></div>
+      <div class="v-line v-line-right"></div>
+    </div>
+
+    <!-- Custom Cursor Pointer -->
+    <div class="cursor-dot" id="cursor-dot" style="opacity:0;"></div>
+
+    <div class="main-content-wrapper" id="main-content-wrapper">
+      <SiteHeader />
+      <slot />
+      {!isHome && <SiteFooter />}
+    </div>
+
+    <script>
+      // 1. Scroll Reveal Intersection Observer Setup
+      function setupScrollReveal() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -80px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      setupScrollReveal();
+      document.addEventListener('astro:after-swap', setupScrollReveal);
+
+      // 2. Full-Screen Split Shutter Animation Controller
+      function handlePreloader() {
+        const preloader = document.getElementById('preloader-overlay');
+        
+        if (!preloader) return;
+
+        if (window.kubanyIntroPlayed === true) {
+          preloader.classList.add('shutter-open');
+          document.body.classList.remove('preloading');
+        } else {
+          document.body.classList.add('preloading');
+          
+          // Trigger SVG drawing slightly after overlay shows
+          setTimeout(() => {
+            const logo = preloader.querySelector('.kb-logo');
+            if (logo) logo.classList.add('is-in');
+          }, 150);
+
+          // Fade out the logo itself before splitting the shutters
+          setTimeout(() => {
+            preloader.classList.add('logo-fade');
+          }, 2400);
+
+          // Transition preloader off screen and record session flag
+          setTimeout(() => {
+            preloader.classList.add('shutter-open');
+            document.body.classList.remove('preloading');
+            window.kubanyIntroPlayed = true;
+          }, 2500);
+        }
+      }
+
+      handlePreloader();
+      document.addEventListener('astro:after-swap', handlePreloader);
+
+      // 3. Custom LERP Cursor Follower Script
+      let mouseX = -100, mouseY = -100;
+      let dotX = -100, dotY = -100;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        const dot = document.getElementById('cursor-dot');
+        if (dot && dot.style.opacity === '0') {
+          dot.style.opacity = '1';
+        }
+      });
+
+      document.addEventListener('mouseleave', () => {
+        const dot = document.getElementById('cursor-dot');
+        if (dot) dot.style.opacity = '0';
+      });
+
+      document.addEventListener('mouseenter', () => {
+        const dot = document.getElementById('cursor-dot');
+        if (dot) dot.style.opacity = '1';
+      });
+
+      function animateCursor() {
+        const dot = document.getElementById('cursor-dot');
+
+        dotX += (mouseX - dotX) * 0.45;
+        dotY += (mouseY - dotY) * 0.45;
+
+        if (dot) {
+          dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+        }
+
+        requestAnimationFrame(animateCursor);
+      }
+      requestAnimationFrame(animateCursor);
+
+      function bindCursorHovers() {
+        const dotEl = document.getElementById('cursor-dot');
+        if (!dotEl) return;
+
+        // Hover cards, links, buttons, tab handles, and interactive items
+        document.querySelectorAll('a, button, .logo-link, [role="button"], .pane-tab-handle, [data-cursor]').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            dotEl.classList.add('hover-active');
+          });
+
+          el.addEventListener('mouseleave', () => {
+            dotEl.classList.remove('hover-active');
+          });
+        });
+      }
+
+      bindCursorHovers();
+      document.addEventListener('astro:after-swap', bindCursorHovers);
+    </script>
+  </body>
+</html>

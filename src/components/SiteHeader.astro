@@ -1,0 +1,114 @@
+---
+import KubanyLogo from './KubanyLogo.astro';
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="logo-link" aria-label="KUBANY Homepage">
+      <KubanyLogo width={140} />
+    </a>
+    
+    <nav class="nav-menu">
+      <a href="/?pane=portfolio" class="nav-link animated-underline" data-target-pane="pane-work">Work</a>
+      <a href="/?pane=about" class="nav-link animated-underline" data-target-pane="pane-bio">About</a>
+      <a href="/?pane=services" class="nav-link animated-underline" data-target-pane="pane-services">Services</a>
+      <a href="/?pane=contact" class="nav-link animated-underline" data-target-pane="pane-contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(253, 251, 247, 0.85); /* Semi-transparent cream */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding-block: 1rem;
+    transition: padding 0.3s ease;
+  }
+
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-link {
+    display: inline-flex;
+    color: var(--header-color);
+  }
+
+  .nav-menu {
+    display: flex;
+    gap: clamp(1.2rem, 3vw, 2.5rem);
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-color);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .nav-link:hover {
+    color: var(--accent-color);
+  }
+
+  @media (max-width: 48rem) {
+    .site-header {
+      padding-block: 0.75rem;
+    }
+    .nav-menu {
+      gap: 1rem;
+    }
+  }
+</style>
+
+<script>
+  function setupHeaderNav() {
+    const navLinks = document.querySelectorAll('.nav-menu .nav-link');
+    
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        // Only intercept clicks if we are on the homepage
+        if (window.location.pathname === '/' || window.location.pathname === '') {
+          const targetPaneClass = link.getAttribute('data-target-pane');
+          if (!targetPaneClass) return;
+
+          const targetCol = document.querySelector(`.${targetPaneClass}`);
+          if (targetCol) {
+            e.preventDefault();
+            // Trigger a click on the target column to open it
+            (targetCol as HTMLElement).click();
+          }
+        }
+      });
+    });
+
+    // Also, handle the logo link click on the homepage to open Pane 1 (Firm)
+    const logoLink = document.querySelector('.logo-link');
+    if (logoLink) {
+      logoLink.addEventListener('click', (e) => {
+        if (window.location.pathname === '/' || window.location.pathname === '') {
+          const targetCol = document.querySelector('.pane-brand');
+          if (targetCol && !targetCol.classList.contains('active')) {
+            e.preventDefault();
+            (targetCol as HTMLElement).click();
+          }
+        }
+      });
+    }
+  }
+
+  // Bind initial click behaviors
+  setupHeaderNav();
+
+  // Re-bind after Astro transitions
+  document.addEventListener('astro:after-swap', setupHeaderNav);
+</script>
