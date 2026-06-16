@@ -49,6 +49,81 @@ export const caseStudies: CaseStudy[] = [
     coverage: ["Galerie", "Architectural Digest"],
   },
   {
+    slug: "rothko-chapel",
+    title: "The Rothko Chapel",
+    discipline: "Cultural institution & landscape",
+    role: "Restoration campaign & global communications",
+    year: "2024",
+    summary:
+      "Restoring and expanding a landmark sanctuary of art and contemplation in Houston, Texas.",
+    body: [
+      "The Rothko Chapel is a unique cultural monument, uniting modern art and spiritual contemplation. For its major restoration and campus expansion, we designed a campaign to explain the physical preservation of the chapel itself alongside the creation of a new campus designed by Architecture Research Office (ARO).",
+      "By engaging international art and architecture critics early, we helped articulate how the new landscape and community spaces honor Mark Rothko's original vision while welcoming a broader public. The campaign successfully positioned the project as a critical evolution for one of the world's most sacred modern spaces.",
+    ],
+    hero: {
+      src: "/assets/rothko-chapel.png",
+      alt: "A minimalist modern brick and concrete chapel pavilion by a reflecting pool.",
+    },
+    gallery: [
+      {
+        src: "/assets/rothko-chapel.png",
+        alt: "Minimalist brick pavilion reflecting in the water.",
+        caption: "The Rothko Chapel expansion — architecture designed for quiet contemplation.",
+      },
+    ],
+    coverage: ["The New York Times", "Artforum", "The Art Newspaper"],
+  },
+  {
+    slug: "one-world-trade",
+    title: "One World Trade Center",
+    discipline: "Architecture & civic infrastructure",
+    role: "Strategic communications & launch PR for SOM",
+    year: "2014",
+    summary:
+      "Representing the architectural narrative of a defining addition to the global skyline.",
+    body: [
+      "As the public relations lead for Skidmore, Owings & Merrill's design of One World Trade Center, we managed a decade-long communication plan for the historic tower. The challenge was balancing its civic and symbolic weight with the functional reality of a state-of-the-art office high-rise.",
+      "We coordinated exclusive design access with key architectural critics, broadcast networks, and international press, ensuring the dialogue focused on the building's structural innovation, sustainability, and its contribution to the rebirth of Lower Manhattan.",
+    ],
+    hero: {
+      src: "/assets/one-world-trade.png",
+      alt: "One World Trade Center skyscraper soaring into a bright blue sky.",
+    },
+    gallery: [
+      {
+        src: "/assets/one-world-trade.png",
+        alt: "One World Trade Center skyscraper towering above Lower Manhattan.",
+        caption: "One World Trade Center — a symbol of resilience and modern design.",
+      },
+    ],
+    coverage: ["Architectural Record", "Wired", "CNN", "Wall Street Journal"],
+  },
+  {
+    slug: "exhibit-columbus",
+    title: "Exhibit Columbus",
+    discipline: "Civic design & public biennial",
+    role: "Inaugural launch agency & communications advisory",
+    year: "2023",
+    summary:
+      "Amplifying a unique community-driven exhibition of architecture and temporary design installations.",
+    body: [
+      "Exhibit Columbus honors the design heritage of Columbus, Indiana, by inviting contemporary designers to insert temporary pavilions throughout the city. We served as the launch PR agency, crafting the initial brand identity narrative for the biennial.",
+      "Through ongoing strategic advisory, we positioned Columbus not just as an open-air museum of mid-century architecture, but as a living laboratory for the future of public space, drawing national coverage from leading design and lifestyle media.",
+    ],
+    hero: {
+      src: "/assets/exhibit-columbus.png",
+      alt: "A dynamic wooden and steel open-air pavilion in Columbus, Indiana, with visitors around.",
+    },
+    gallery: [
+      {
+        src: "/assets/exhibit-columbus.png",
+        alt: "An open-air wooden structure with seating under a geometric canopy.",
+        caption: "Exhibit Columbus — temporary installations fostering community dialogue.",
+      },
+    ],
+    coverage: ["Metropolis", "The Architect's Newspaper", "Fast Company"],
+  },
+  {
     slug: "center-for-art-and-landscape",
     title: "Center for Art and Landscape",
     discipline: "Architecture & cultural institution",
