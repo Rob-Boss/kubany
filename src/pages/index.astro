@@ -11,38 +11,48 @@ const positioning =
   "By heightening the dialogue around culture, beauty and design, KUBANY believes that these topics will then become an indelible part of contemporary discourse. Deeply rooted in culture and savvy about the media, KUBANY has a long history of creating and communicating powerful ideas.";
 
 const servicesIntro =
-  "We are a full-service communications firm with capabilities across traditional public relations, content creation, creative strategy and social media strategy.";
+  "Your brand is an ecosystem. Public relations is no longer enough on its own. We are a full-service communications firm with capabilities across traditional public relations, communications, content creation, creative strategy and social media/digital strategy that considers every aspect of your brand platform in formulating an approach.";
 
 const services = [
   { 
     id: "01",
-    title: "Media Relations", 
-    body: "KUBANY excels at creating and executing fully integrated communications campaigns that influence audiences locally, nationally, and internationally." 
+    title: "Communications & Media Relations", 
+    body: "Rivaling agencies many times our size, KUBANY excels at creating and executing fully integrated communications campaigns that influence audiences locally, nationally, and internationally. KUBANY looks well beyond the marquis print placement to create a strategic plan based in storytelling and brand building that produces careful ubiquity on all platforms and advances our clients' mission and goals." 
   },
   { 
     id: "02",
-    title: "Online Strategy", 
-    body: "Social media is no longer optional. We approach online engagement as a vital and integral part of any communications strategy." 
+    title: "Social Media & Online Strategy", 
+    body: "Social media is no longer optional. We approach social media engagement as a vital and integral part of any communications strategy. From social media audits to strategic social media plans that deepen and broaden engagement to influencer marketing, KUBANY understands the power of these platforms to build an audience." 
   },
   { 
     id: "03",
-    title: "Brand Engagement", 
-    body: "In a noisy world, those brands that are highly disciplined about their messages are the ones that prevail." 
+    title: "Marketing & Brand Engagement", 
+    body: "Great press is just part of the picture. In a noisy world, those brands that are highly disciplined about their messages are the ones that prevail. Therefore, every aspect of engagement — from marketing to communications to internal communications — should be coordinated in terms of language and strategy." 
   },
   { 
     id: "04",
-    title: "Creative Services", 
-    body: "With a creative spirit, KUBANY makes connections and forges partnerships to further the goals of brands and firms." 
+    title: "Partnerships & Creative Services", 
+    body: "With a creative spirit and a broad-based awareness of the cultural landscape and marketplace, KUBANY makes connections and forges partnerships to further the goals of brands, institutions, and firms." 
   },
   { 
     id: "05",
-    title: "Content Creation", 
-    body: "We believe that words matter and that a rigorous set of messages is the best way to achieve broad awareness." 
+    title: "Content Creation & Editorial", 
+    body: "We still believe that words matter and that a rigorous set of messages, disseminated through a variety of platforms, is the best way to achieve broad awareness. Our work encompasses press materials, message development, speeches, bylined articles, white papers, op-eds, and promotional materials." 
   },
   { 
     id: "06",
-    title: "Crisis Consulting", 
-    body: "Within every crisis lies the possibility of opportunity. We provide steady, strategic guidance during critical moments." 
+    title: "Crisis Communications", 
+    body: "Within every crisis, lies the possibility of opportunity. We are expert in guiding clients through crises in a way that reinforces credibility and enhances trust so that they emerge strong." 
+  },
+  { 
+    id: "07",
+    title: "Media Training", 
+    body: "The ability to communicate your messages is critical to this work. We can brush up your skills, or teach you new ones, to help you share your story more effectively." 
+  },
+  { 
+    id: "08",
+    title: "Awards & Thought Leadership", 
+    body: "Awards, photography, video, speaking engagements, thought leadership, and more — KUBANY has experience working across all of these topics to ensure a thoughtfully crafted brand story." 
   },
 ];
 
@@ -176,29 +186,17 @@ const boards = [
         <span class="handle-line"></span>
       </div>
 
-      <div class="pane-content-area">
-        <div class="pane-header">
-          <p class="eyebrow">Expertise</p>
-          <h2 class="pane-title">Our Services</h2>
-          <p class="services-intro">{servicesIntro}</p>
-        </div>
-
-        <div class="services-accordion">
-          {services.map((service) => (
-            <div class="accordion-item">
-              <div class="accordion-header">
-                <span class="item-id">{service.id}</span>
-                <h3 class="item-title">{service.title}</h3>
+      <div class="pane-content-area poster-layout">
+        <div class="services-poster">
+          {services.map((service, i) => (
+            <div class="poster-line" data-poster-idx={i}>
+              <div class="poster-line-inner">
+                <h3 class="poster-title">{service.title}</h3>
+                <span class="poster-id">{service.id}</span>
               </div>
-              <div class="accordion-content">
-                <p class="item-body">{service.body}</p>
-              </div>
+              <p class="poster-desc">{service.body}</p>
             </div>
           ))}
-        </div>
-
-        <div class="pane-footer">
-          <p class="services-meta">Integrated ecosystems for design leadership</p>
         </div>
       </div>
     </div>
@@ -250,24 +248,30 @@ const boards = [
         <span class="handle-line"></span>
       </div>
 
-      <div class="pane-content-area">
-        <div class="pane-header">
-          <p class="eyebrow">Inquiries</p>
-          <h2 class="pane-title">Get In Touch</h2>
-        </div>
-
-        <div class="contact-pitch">
-          <p class="pitch-title">Let's build your story.</p>
-          <p class="pitch-text">We connect intimate client relationships and long-standing media networks to tell partners' stories with absolute clarity.</p>
-        </div>
-
-        <div class="contact-links-box">
-          <a href="mailto:elizabeth@kubany.co" class="big-email-btn">elizabeth@kubany.co</a>
-          
-          <div class="contact-channels">
-            <a href="https://www.instagram.com/elizabethkubany/" target="_blank" rel="noopener noreferrer" class="channel-link animated-underline">Instagram</a>
-            <a href="https://www.linkedin.com/in/lizkubany/" target="_blank" rel="noopener noreferrer" class="channel-link animated-underline">LinkedIn</a>
+      <div class="pane-content-area connect-layout">
+        <div>
+          <div class="pane-header">
+            <p class="eyebrow">Inquiries</p>
+            <h2 class="pane-title">Get In Touch</h2>
           </div>
+
+          <p class="connect-lede">We'd love to hear about your project. Whether you're launching a new building, repositioning a brand, or telling a story that matters — let's start the conversation.</p>
+        </div>
+
+        <div class="connect-cta-block">
+          <span class="connect-annotation">[ DIRECT_LINE ]</span>
+          <a href="mailto:elizabeth@kubany.co" class="connect-email-link" data-cursor="view">elizabeth@kubany.co</a>
+          <span class="connect-annotation">[ FOLLOW ]</span>
+          <div class="connect-socials">
+            <a href="https://www.instagram.com/elizabethkubany/" target="_blank" rel="noopener noreferrer" class="connect-social-link" data-cursor="view">Instagram</a>
+            <span class="connect-divider">/</span>
+            <a href="https://www.linkedin.com/in/lizkubany/" target="_blank" rel="noopener noreferrer" class="connect-social-link" data-cursor="view">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="connect-meta">
+          <p class="connect-location">New York City</p>
+          <p class="connect-est">Est. 2002</p>
         </div>
       </div>
     </div>
@@ -445,72 +449,90 @@ const boards = [
     display: inline-block;
   }
 
-  /* Column 3: Capabilities Accordion */
-  .services-intro {
-    font-size: var(--step--1);
-    line-height: 1.5;
-    opacity: 0.8;
-    font-weight: 300;
-  }
-
-  .services-accordion {
-    display: flex;
-    flex-direction: column;
-    margin-top: 1.5rem;
-  }
-
-  .accordion-item {
-    border-bottom: 0.5px solid var(--border-color);
-    padding-block: 1rem;
+  /* Column 3: Stacked Type Poster */
+  .poster-layout {
+    padding: 0;
     overflow: hidden;
   }
 
-  .accordion-item:first-child {
-    padding-top: 0;
-  }
-
-  .accordion-header {
+  .services-poster {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
+    flex-direction: column;
+    height: 100%;
   }
 
-  .item-id {
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
-    color: var(--sand-color);
+  .poster-line {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-inline: 2rem;
+    border-bottom: 0.5px solid var(--border-color);
+    overflow: hidden;
+    cursor: default;
+    transition: flex 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.3s ease;
   }
 
-  .item-title {
-    font-size: var(--step-0);
+  .poster-line:last-child {
+    border-bottom: none;
+  }
+
+  .poster-line-inner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    min-height: 0;
+  }
+
+  .poster-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
     color: var(--header-color);
     font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    white-space: nowrap;
+    transition: font-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .accordion-content {
-    max-height: 0;
-    transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .item-body {
-    font-size: var(--step--1);
-    line-height: 1.6;
-    opacity: 0.8;
-    padding-top: 0.75rem;
-    padding-left: 3.25rem;
-    font-weight: 300;
-  }
-
-  /* Trigger accordion open on hover of items */
-  .accordion-item:hover .accordion-content {
-    max-height: 150px;
-  }
-
-  .services-meta {
+  .poster-id {
     font-family: var(--font-mono);
     font-size: var(--step--2);
     color: var(--sand-color);
-    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .poster-desc {
+    font-size: var(--step--1);
+    line-height: 1.55;
+    font-weight: 300;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.35s ease 0.1s,
+                max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    color: var(--text-color);
+  }
+
+  /* Hover states: expand active, compress & dim others */
+  .services-poster:hover .poster-line {
+    opacity: 0.35;
+  }
+
+  .services-poster:hover .poster-line:hover {
+    opacity: 1;
+    flex: 3 1 0;
+  }
+
+  .services-poster:hover .poster-line:hover .poster-title {
+    font-size: var(--step-3);
+  }
+
+  .services-poster:hover .poster-line:hover .poster-desc {
+    opacity: 0.85;
+    max-height: 6rem;
   }
 
   /* Column 4: Biography Pane */
@@ -578,55 +600,93 @@ const boards = [
   }
 
   /* Column 5: Connect */
-  .contact-pitch {
-    margin-bottom: 2rem;
+  .connect-layout {
+    justify-content: space-between;
   }
 
-  .pitch-title {
+  .connect-lede {
+    font-size: var(--step-0);
+    line-height: 1.65;
+    color: var(--text-color);
+    opacity: 0.85;
+    font-weight: 300;
+    max-width: 38ch;
+    margin-top: 1rem;
+  }
+
+  .connect-cta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .connect-annotation {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    letter-spacing: 0.05em;
+  }
+
+  .connect-email-link {
     font-family: var(--font-serif);
-    font-size: var(--step-2);
+    font-size: var(--step-3);
     color: var(--header-color);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    transition: opacity 0.3s ease;
     margin-bottom: 0.5rem;
   }
 
-  .pitch-text {
-    font-size: var(--step--1);
-    line-height: 1.6;
-    opacity: 0.85;
-    font-weight: 300;
+  .connect-email-link:hover {
+    opacity: 0.6;
   }
 
-  .contact-links-box {
+  .connect-socials {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    align-items: center;
+    gap: 0.75rem;
   }
 
-  .big-email-btn {
-    font-family: var(--font-serif);
-    font-size: var(--step-1);
-    color: var(--bg-color);
-    background-color: var(--header-color);
-    padding: 1rem 1.5rem;
-    border: 1px solid var(--header-color);
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  .connect-social-link {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
   }
 
-  .big-email-btn:hover {
-    background-color: transparent;
+  .connect-social-link:hover {
     color: var(--header-color);
   }
 
-  .contact-channels {
-    display: flex;
-    gap: 1.5rem;
-  }
-
-  .channel-link {
+  .connect-divider {
     font-family: var(--font-mono);
     font-size: var(--step--1);
+    color: var(--sand-color);
+    opacity: 0.5;
+  }
+
+  .connect-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+  }
+
+  .connect-location {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .connect-est {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
     letter-spacing: 0.05em;
   }
 
@@ -669,13 +729,14 @@ const boards = [
       padding-left: 0;
     }
 
-    .accordion-content {
-      max-height: 150px; /* Fully expanded on mobile */
+    /* On mobile, poster lines stack simply */
+    .poster-line {
+      padding-inline: 1.25rem;
     }
 
-    .big-email-btn {
-      padding: 0.85rem 1.25rem;
-      font-size: var(--step-0);
+    .poster-desc {
+      opacity: 0.85;
+      max-height: 6rem;
     }
   }
 </style>
@@ -819,6 +880,8 @@ const boards = [
       link.addEventListener('mouseleave', clearPath);
     });
   }
+
+  // 5. (Services poster is now pure CSS — no JS needed)
 
   // Bind initial interactions
   setupProjectBgHover();
