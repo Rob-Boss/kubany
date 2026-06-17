@@ -282,6 +282,101 @@ const boards = [
       </div>
     </div>
   </main>
+
+  <!-- CASE STUDY MODAL OVERLAYS -->
+  <div slot="overlays">
+    {caseStudies.map((study, index) => {
+      const nextStudy = caseStudies[(index + 1) % caseStudies.length];
+      return (
+        <div class="case-study-overlay" id={`overlay-${study.slug}`}>
+          <div class="overlay-card">
+            <button class="overlay-close-btn" data-close-overlay aria-label="Close Case Study">&times;</button>
+            <div class="overlay-inner">
+              
+              <header class="overlay-header">
+                <div class="overlay-meta-row">
+                  <span class="discipline-tag">{study.discipline}</span>
+                  {study.year && <span class="year-tag">{study.year}</span>}
+                </div>
+                <h1 class="project-title">{study.title}</h1>
+              </header>
+
+              <div class="overlay-content-grid">
+                <!-- Left Column: Specs -->
+                <div class="overlay-grid-left">
+                  <div class="overlay-spec-group">
+                    <span class="spec-label">[ ROLE_DEFINED ]</span>
+                    <p class="spec-value">{study.role}</p>
+                  </div>
+                  
+                  {study.coverage && study.coverage.length > 0 && (
+                    <div class="overlay-spec-group">
+                      <span class="spec-label">[ COVERAGE_HIGHLIGHTS ]</span>
+                      <ul class="coverage-spec-list">
+                        {study.coverage.map((outlet) => (
+                          <li class="coverage-spec-item">{outlet}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                <!-- Right Column: Narrative & Media -->
+                <div class="overlay-grid-right">
+                  <!-- Hero Image -->
+                  <div class="overlay-hero-wrapper hover-zoom">
+                    <span class="overlay-image-annotation">[ HERO_FRAME ]</span>
+                    <img src={study.hero.src} alt={study.hero.alt} />
+                  </div>
+
+                  <!-- Lede Summary -->
+                  <div class="overlay-lede-block">
+                    <span class="overlay-section-label">[ SEC. 01 // OVERVIEW ]</span>
+                    <p class="overlay-lede-text">{study.summary}</p>
+                  </div>
+
+                  <!-- Narrative Narrative Body -->
+                  <div class="overlay-narrative-body">
+                    {study.body.map((paragraph) => (
+                      <p class="overlay-narrative-p">{paragraph}</p>
+                    ))}
+                  </div>
+
+                  <!-- Press Gallery -->
+                  {study.gallery && study.gallery.length > 0 && (
+                    <div class="overlay-gallery-section">
+                      <span class="overlay-section-label">[ SEC. 02 // PRESS_GALLERY ]</span>
+                      <div class="overlay-gallery-grid">
+                        {study.gallery.map((img) => (
+                          <figure class="overlay-gallery-item">
+                            <div class="overlay-gallery-img-wrapper hover-zoom">
+                              <img src={img.src} alt={img.alt} loading="lazy" />
+                            </div>
+                            {img.caption && <figcaption class="overlay-gallery-caption">{img.caption}</figcaption>}
+                          </figure>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <!-- Bottom Project Navigation -->
+                  <div class="overlay-project-nav">
+                    <span class="overlay-section-label">[ SEC. 03 // NAVIGATION ]</span>
+                    <div class="next-project-teaser">
+                      <span class="teaser-label">Next Project</span>
+                      <button class="next-link-btn animated-underline" data-next-project={nextStudy.slug}>
+                        {nextStudy.title} &rarr;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
 </BaseLayout>
 
 <style>
@@ -626,9 +721,9 @@ const boards = [
 
   .boards-list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 2rem;
   }
 
   .board-item {
@@ -734,6 +829,234 @@ const boards = [
     display: none; /* Hidden on desktop canvas wrapper layout */
   }
 
+  /* Case Study Overlay Styles */
+  .case-study-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: rgba(253, 251, 247, 0.45);
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-study-overlay.active {
+    display: flex;
+  }
+
+  .overlay-card {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    max-height: 90vh;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+
+  .overlay-inner {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  /* Pinned Close Button */
+  .overlay-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--header-color);
+    cursor: pointer;
+    z-index: 1010;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .overlay-close-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  /* Header Section */
+  .overlay-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .overlay-meta-row {
+    display: flex;
+    gap: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  /* Content Grid Layout */
+  .overlay-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .overlay-grid-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+  }
+
+  .overlay-spec-group {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+  }
+
+  .coverage-spec-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .coverage-spec-item {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+  }
+
+  /* Right column elements */
+  .overlay-grid-right {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .overlay-hero-wrapper {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(61, 82, 69, 0.04);
+  }
+
+  .overlay-hero-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .overlay-image-annotation {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    color: var(--sand-color);
+    z-index: 5;
+    background-color: var(--bg-color);
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Section annotations kept strictly inside content flow to avoid grid line overlaps */
+  .overlay-section-label {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+  }
+
+  .overlay-lede-block {
+    margin-bottom: 1rem;
+  }
+
+  .overlay-lede-text {
+    font-family: var(--font-serif);
+    font-size: var(--step-2);
+    line-height: 1.45;
+    color: var(--header-color);
+  }
+
+  .overlay-narrative-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .overlay-narrative-p {
+    font-size: var(--step-0);
+    line-height: 1.7;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+
+  /* Press Gallery */
+  .overlay-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .overlay-gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .overlay-gallery-img-wrapper {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+
+  .overlay-gallery-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .overlay-gallery-caption {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+    font-style: italic;
+  }
+
+  /* Navigation button */
+  .overlay-project-nav {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+  }
+
+  .next-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+    cursor: pointer;
+    font-weight: 400;
+  }
+
   /* Mobile responsive styling overrides */
   @media (max-width: 48rem) {
     .portfolio-split-layout {
@@ -744,6 +1067,49 @@ const boards = [
     .bio-split-layout {
       grid-template-columns: 1fr;
       gap: 2.5rem;
+    }
+
+    .boards-list {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .case-study-overlay {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+    }
+
+    .overlay-card {
+      width: 100%;
+      height: 100vh;
+      max-height: 100vh;
+      border: none;
+    }
+
+    .overlay-inner {
+      padding: 1.5rem;
+      padding-top: 4.5rem;
+    }
+
+    .overlay-close-btn {
+      top: 1rem;
+      right: 1rem;
+      font-size: 2.5rem;
+    }
+
+    .overlay-content-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .overlay-grid-left {
+      position: static;
+    }
+
+    .overlay-gallery-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
     
     .portfolio-right-col {
@@ -927,11 +1293,153 @@ const boards = [
 
   // 5. (Services poster is now pure CSS — no JS needed)
 
+  // 5. Case Study Overlay Modal Controls
+  function setupCaseStudyOverlays() {
+    const studySlugs = Array.from(document.querySelectorAll('.case-study-overlay')).map(el => el.id.replace('overlay-', ''));
+
+    // Intercept project clicks
+    document.querySelectorAll('.work-menu-link').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slug = link.getAttribute('data-project-hover');
+        if (!slug) return;
+        
+        openOverlay(slug);
+      });
+    });
+
+    // Handle close buttons
+    document.querySelectorAll('[data-close-overlay]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const overlay = btn.closest('.case-study-overlay');
+        if (overlay) {
+          overlay.classList.remove('active');
+          document.body.classList.remove('has-overlay-active');
+          // Remove query param without reload
+          const url = new URL(window.location.href);
+          url.searchParams.delete('project');
+          window.history.pushState({}, '', url);
+        }
+      });
+    });
+
+    // Handle next project buttons
+    document.querySelectorAll('[data-next-project]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const nextSlug = btn.getAttribute('data-next-project');
+        const currentOverlay = btn.closest('.case-study-overlay');
+        if (currentOverlay) {
+          currentOverlay.classList.remove('active');
+        }
+        if (nextSlug) {
+          openOverlay(nextSlug);
+        }
+      });
+    });
+
+    // Helper to open overlay
+    function openOverlay(slug) {
+      const overlay = document.getElementById('overlay-' + slug);
+      if (overlay) {
+        overlay.classList.add('active');
+        document.body.classList.add('has-overlay-active');
+        // Update URL query param without reload
+        const url = new URL(window.location.href);
+        url.searchParams.set('project', slug);
+        window.history.pushState({}, '', url);
+      }
+    }
+
+    // Keyboard controls: Escape & Left/Right Arrows
+    function handleKeydown(e) {
+      const activeOverlay = document.querySelector('.case-study-overlay.active');
+      if (!activeOverlay) return;
+
+      if (e.key === 'Escape') {
+        activeOverlay.classList.remove('active');
+        document.body.classList.remove('has-overlay-active');
+        const url = new URL(window.location.href);
+        url.searchParams.delete('project');
+        window.history.pushState({}, '', url);
+      } else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const currentSlug = activeOverlay.id.replace('overlay-', '');
+        const index = studySlugs.indexOf(currentSlug);
+        if (index === -1) return;
+
+        let nextIndex;
+        if (e.key === 'ArrowRight') {
+          nextIndex = (index + 1) % studySlugs.length;
+        } else {
+          nextIndex = (index - 1 + studySlugs.length) % studySlugs.length;
+        }
+
+        activeOverlay.classList.remove('active');
+        openOverlay(studySlugs[nextIndex]);
+      }
+    }
+
+    window.removeEventListener('keydown', handleKeydown);
+    window.addEventListener('keydown', handleKeydown);
+
+    // Auto-open if query param exists on load
+    const params = new URLSearchParams(window.location.search);
+    const initialProject = params.get('project');
+    if (initialProject) {
+      setTimeout(() => {
+        openOverlay(initialProject);
+      }, 500);
+    }
+  }
+
+  function setupFolioKeyboardControls() {
+    const columns = Array.from(document.querySelectorAll('.canvas-column'));
+    const brandCol = document.querySelector('.pane-brand');
+
+    function handleKeyDown(e) {
+      // ONLY run if no overlay is active!
+      const activeOverlay = document.querySelector('.case-study-overlay.active');
+      if (activeOverlay) return;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const activeCol = document.querySelector('.canvas-column.active');
+        if (!activeCol) return;
+
+        const index = columns.indexOf(activeCol);
+        if (index === -1) return;
+
+        let nextIndex;
+        if (e.key === 'ArrowRight') {
+          nextIndex = (index + 1) % columns.length;
+        } else {
+          nextIndex = (index - 1 + columns.length) % columns.length;
+        }
+
+        const targetCol = columns[nextIndex];
+        if (targetCol) {
+          columns.forEach((c) => c.classList.remove('active'));
+          targetCol.classList.add('active');
+          targetCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      } else if (e.key === 'Escape') {
+        if (brandCol && !brandCol.classList.contains('active')) {
+          columns.forEach((c) => c.classList.remove('active'));
+          brandCol.classList.add('active');
+          brandCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    }
+
+    window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+  }
+
   // Bind initial interactions
   setupProjectBgHover();
   setupFolioAccordion();
   routeFolioPanes();
   setupConnectorLines();
+  setupCaseStudyOverlays();
+  setupFolioKeyboardControls();
 
   // Re-bind bindings after Astro page swaps
   document.addEventListener('astro:after-swap', () => {
@@ -939,5 +1447,7 @@ const boards = [
     setupFolioAccordion();
     routeFolioPanes();
     setupConnectorLines();
+    setupCaseStudyOverlays();
+    setupFolioKeyboardControls();
   });
 </script>

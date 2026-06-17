@@ -97,6 +97,8 @@ const isHome = pathname === '/' || pathname === '';
       {!isHome && <SiteFooter />}
     </div>
 
+    <slot name="overlays" />
+
     <script>
       // 1. Scroll Reveal Intersection Observer Setup
       function setupScrollReveal() {

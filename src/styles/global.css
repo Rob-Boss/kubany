@@ -122,7 +122,13 @@ body {
   opacity: 1;
   transform: none;
   transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.4s ease;
+}
+
+body.has-overlay-active .main-content-wrapper {
+  filter: blur(12px);
+  pointer-events: none;
 }
 
 body.preloading {
