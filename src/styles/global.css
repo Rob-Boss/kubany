@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Tenor+Sans&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&family=Fira+Code:wght@400;500;600&display=swap');
 
 :root {
   /* Colors */
@@ -11,9 +11,9 @@
   --border-color: rgba(61, 82, 69, 0.12);
   
   /* Fonts */
-  --font-serif: 'Tenor Sans', sans-serif;
-  --font-sans: 'Inter', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-serif: 'Fraunces', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-mono: 'Fira Code', monospace;
 
   /* Font Sizes (Fluid Typography) */
   --step--2: clamp(0.694rem, 0.6905rem + 0.0177vw, 0.704rem);

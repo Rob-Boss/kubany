@@ -209,16 +209,12 @@ const boards = [
         <span class="handle-line"></span>
       </div>
 
-      <div class="pane-content-area">
-        <div>
+      <div class="pane-content-area bio-split-layout">
+        <!-- Left Side: Bio text and affiliations -->
+        <div class="bio-left-col">
           <div class="pane-header">
             <p class="eyebrow">The Founder</p>
             <h2 class="pane-title">Elizabeth Kubany</h2>
-          </div>
-
-          <div class="bio-teaser hover-zoom">
-            <span class="image-annotation">[ LIZ_KUBANY // STUDIO ]</span>
-            <img src="/assets/elizabeth-studio.jpg" alt="Elizabeth Kubany" />
           </div>
 
           <div class="bio-text-block">
@@ -227,15 +223,25 @@ const boards = [
               <p class="bio-paragraph">{p}</p>
             ))}
           </div>
+
+          <div class="boards-box">
+            <p class="boards-title">[ BOARD_AFFILIATIONS ]</p>
+            <ul class="boards-list">
+              {boards.map(b => (
+                <li class="board-item">{b}</li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div class="boards-box">
-          <p class="boards-title">[ BOARD_AFFILIATIONS ]</p>
-          <ul class="boards-list">
-            {boards.map(b => (
-              <li class="board-item">{b}</li>
-            ))}
-          </ul>
+        <!-- Right Side: Frame and Image -->
+        <div class="bio-right-col">
+          <div class="bio-teaser">
+            <span class="image-annotation">[ LIZ_KUBANY // STUDIO_ONE ]</span>
+            <div class="bio-image-wrapper hover-zoom">
+              <img src="/assets/elizabeth-studio-one.jpg" alt="Elizabeth Kubany" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -536,15 +542,48 @@ const boards = [
   }
 
   /* Column 4: Biography Pane */
-  .bio-teaser {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    border: 1px solid var(--border-color);
-    overflow: hidden;
-    margin-bottom: 1.5rem;
+  .bio-split-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3.5rem;
+    align-items: start;
   }
 
-  .bio-teaser img {
+  .bio-left-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio-right-col {
+    position: sticky;
+    top: 0;
+  }
+
+  .bio-teaser {
+    background-color: var(--sand-light);
+    border: 1px solid var(--border-color);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .image-annotation {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bio-image-wrapper {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+
+  .bio-image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -700,6 +739,11 @@ const boards = [
     .portfolio-split-layout {
       flex-direction: column !important;
       gap: 2rem;
+    }
+
+    .bio-split-layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
     }
     
     .portfolio-right-col {
