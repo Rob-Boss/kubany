@@ -94,7 +94,7 @@ const isHome = pathname === '/' || pathname === '';
     <div class="main-content-wrapper" id="main-content-wrapper">
       <SiteHeader />
       <slot />
-      {!isHome && <SiteFooter />}
+      <SiteFooter />
     </div>
 
     <slot name="overlays" />

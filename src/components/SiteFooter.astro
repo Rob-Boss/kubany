@@ -27,7 +27,7 @@ const currentYear = new Date().getFullYear();
   
   <div class="wrap footer-bottom">
     <p class="copyright">&copy; {currentYear} KUBANY, LLC. All rights reserved.</p>
-    <p class="credit">Website designed in NYC</p>
+    <p class="credit">Site by <a href="mailto:ben@switchpartners.co" class="footer-credit-link" target="_blank" rel="noopener noreferrer">Switch Partners</a></p>
   </div>
 </footer>
 
@@ -117,6 +117,18 @@ const currentYear = new Date().getFullYear();
     font-size: var(--step--2);
     color: var(--text-color);
     opacity: 0.6;
+  }
+
+  .footer-credit-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .footer-credit-link:hover {
+    opacity: 1;
   }
 
   @media (max-width: 48rem) {

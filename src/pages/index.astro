@@ -341,8 +341,8 @@ const boards = [
           </div>
 
           <div class="connect-meta">
-            <p class="connect-location">New York City</p>
-            <p class="connect-est">Est. 2002</p>
+            <p class="connect-location">&copy; 2026 KUBANY, LLC</p>
+            <p class="connect-est">Site by <a href="mailto:ben@switchpartners.co" class="connect-credit-link" target="_blank" rel="noopener noreferrer" data-cursor="view">Switch Partners</a></p>
           </div>
         </div>
       </div>
@@ -1061,6 +1061,19 @@ const boards = [
     font-size: var(--step--2);
     color: var(--sand-color);
     letter-spacing: 0.05em;
+  }
+
+  .connect-credit-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+
+  .connect-credit-link:hover {
+    opacity: 1;
+    color: var(--header-color);
   }
 
   @media (max-width: 900px) {
