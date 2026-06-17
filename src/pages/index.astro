@@ -1387,13 +1387,54 @@ const boards = [
     }
 
     /* On mobile, poster lines stack simply */
+    .services-poster {
+      display: block !important;
+      height: auto !important;
+    }
+
     .poster-line {
-      padding-inline: 1.25rem;
+      flex: none !important;
+      height: auto !important;
+      overflow: visible !important;
+      opacity: 1 !important;
+      border-bottom: 0.5px solid var(--border-color) !important;
+      padding-block: 1.75rem !important;
+      padding-inline: 0 !important;
+    }
+
+    .poster-line:last-child {
+      border-bottom: none !important;
+    }
+
+    .poster-title {
+      white-space: normal !important;
+      font-size: var(--step-1) !important;
     }
 
     .poster-desc {
-      opacity: 0.85;
-      max-height: 6rem;
+      opacity: 0.85 !important;
+      max-height: none !important;
+      overflow: visible !important;
+      margin-top: 0.75rem !important;
+      font-size: var(--step--1) !important;
+    }
+
+    /* Disable hover-based layout shifts on mobile */
+    .services-poster:hover .poster-line {
+      opacity: 1 !important;
+    }
+
+    .services-poster:hover .poster-line:hover {
+      flex: none !important;
+    }
+
+    .services-poster:hover .poster-line:hover .poster-title {
+      font-size: var(--step-1) !important;
+    }
+
+    .services-poster:hover .poster-line:hover .poster-desc {
+      max-height: none !important;
+      opacity: 0.85 !important;
     }
   }
 </style>
