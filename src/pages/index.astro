@@ -347,6 +347,198 @@ const boards = [
         </div>
       </div>
     </div>
+
+    <!-- COLUMN 6: Specs Pane -->
+    <div class="canvas-column pane-specs">
+      <div class="pane-tab-handle">
+        <span class="handle-num">06</span>
+        <span class="handle-title">Specs</span>
+        <span class="handle-line"></span>
+      </div>
+
+      <div class="pane-content-area specs-split-layout">
+        <!-- Sidebar: Aesthetic System -->
+        <aside class="specs-sidebar">
+          <div class="specs-header">
+            <span class="sheet-number">Doc-01</span>
+            <h2 class="sheet-title">Concept Proposal</h2>
+            <p class="sheet-subtitle">Design Architecture & Technical Strategy</p>
+            <div class="header-stamp">
+              <span>Spec-V1</span>
+            </div>
+          </div>
+
+          <div class="sheet-section">
+            <h3 class="section-title"><span>01</span> Aesthetic System</h3>
+            
+            <div class="palette-container">
+              <h4 class="subsection-title">[ Brand Palette ]</h4>
+              <ul class="palette-list">
+                <li class="palette-item">
+                  <span class="color-swatch cream" style="background: #FDFBF7; border: 1.5px solid rgba(61, 82, 69, 0.25);"></span>
+                  <div class="color-details">
+                    <span class="color-name">Cream</span>
+                    <span class="color-hex">#FDFBF7</span>
+                    <span class="color-use">Primary Background</span>
+                  </div>
+                </li>
+                <li class="palette-item">
+                  <span class="color-swatch sage" style="background: #3D5245;"></span>
+                  <div class="color-details">
+                    <span class="color-name">Deep Olive Sage</span>
+                    <span class="color-hex">#3D5245</span>
+                    <span class="color-use">Headers & Accents</span>
+                  </div>
+                </li>
+                <li class="palette-item">
+                  <span class="color-swatch sand" style="background: #B5AB91;"></span>
+                  <div class="color-details">
+                    <span class="color-name">Sand Accent</span>
+                    <span class="color-hex">#B5AB91</span>
+                    <span class="color-use">Meta & Secondary Labeling</span>
+                  </div>
+                </li>
+                <li class="palette-item">
+                  <span class="color-swatch charcoal" style="background: #2D302E;"></span>
+                  <div class="color-details">
+                    <span class="color-name">Charcoal</span>
+                    <span class="color-hex">#2D302E</span>
+                    <span class="color-use">Primary Body Text</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <div class="typography-container">
+              <h4 class="subsection-title">[ Typography ]</h4>
+              <ul class="typography-list">
+                <li>
+                  <strong>Serif:</strong>
+                  <span>Fraunces</span>
+                  <p class="font-preview serif-preview">Selected work and primary headers</p>
+                </li>
+                <li>
+                  <strong>Sans-Serif:</strong>
+                  <span>Outfit</span>
+                  <p class="font-preview sans-preview">Body text, navigation handles, lists</p>
+                </li>
+                <li>
+                  <strong>Monospace:</strong>
+                  <span>Fira Code</span>
+                  <p class="font-preview mono-preview">[ Meta labels & indices ]</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content: Interactive Features, Tech Stack, & Milestones -->
+        <div class="specs-main">
+          <!-- 2. Interactive Mechanics -->
+          <div class="sheet-section">
+            <h3 class="section-title"><span>02</span> Interactive Mechanics</h3>
+            <div class="feature-grid">
+              <div class="feature-card">
+                <h5>Horizontal Folder Folio (Desktop)</h5>
+                <p>Structure compiles into 6 interactive folders. Panes expand horizontally on click/URL deep-link parameters, compressing inactive panes into vertical title headers with smooth cubic-bezier transitions.</p>
+              </div>
+              <div class="feature-card">
+                <h5>Orthogonal Hover Connector (Desktop Portfolio)</h5>
+                <p>Hovering over active case study items triggers an SVG path calculation, drawing dynamic path connectors from the hovered text link directly to the circular image preview target.</p>
+              </div>
+              <div class="feature-card">
+                <h5>Case Study Overlay Modals</h5>
+                <p>Projects mount dynamically inside page overlays with a backdrop blur filter. Features fully integrated keyboard events (Escape key closes, Left/Right arrow keys slide between projects) and fixed dismiss anchors.</p>
+              </div>
+              <div class="feature-card">
+                <h5>Sticky Spines Layout (Mobile)</h5>
+                <p>For responsive displays, the horizontal folders convert to vertically stacked column headers that stick to the viewport header dynamically during page scroll.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Technology Stack -->
+          <div class="sheet-section">
+            <h3 class="section-title"><span>03</span> Technology Stack</h3>
+            <div class="table-wrapper">
+              <table class="stack-table">
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>Technology Selection</th>
+                    <th>Core Function</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Core Engine</strong></td>
+                    <td><span class="tag">Astro Framework</span></td>
+                    <td>Compiles pages to highly optimized static HTML with zero client-side JavaScript by default.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Styling</strong></td>
+                    <td><span class="tag">Vanilla CSS Variables</span></td>
+                    <td>Defines centralized layout dimensions, brand theme systems, and responsive clamp sizes.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Routing & State</strong></td>
+                    <td><span class="tag">Vanilla TS / JS API</span></td>
+                    <td>Coordinates fluid DOM transitions, modal navigation states, and URL parameters.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Deployment</strong></td>
+                    <td><span class="tag">Vercel Integration</span></td>
+                    <td>Auto-builds on git push triggers, serving static assets via global edge content delivery network.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 4. Production Timeline -->
+          <div class="sheet-section">
+            <h3 class="section-title"><span>04</span> Production Timeline</h3>
+            <div class="timeline">
+              <div class="timeline-item">
+                <span class="timeline-step">01</span>
+                <div class="timeline-content">
+                  <h6>Accordion Base Architecture</h6>
+                  <p>Engineered the single-page horizontal accordion container layout. Programmed the customized preloader screen and vectorized SVG splash asset animation.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <span class="timeline-step">02</span>
+                <div class="timeline-content">
+                  <h6>Portfolio Grid & Connector Assets</h6>
+                  <p>Rendered responsive connector lines on hover using math-calculated vector target coordinates. Established high-fidelity static folder sections and portfolio circular preview layout.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <span class="timeline-step">03</span>
+                <div class="timeline-content">
+                  <h6>Section Refinement & Brand Layout</h6>
+                  <p>Upgraded biography container, expertise lists layout, board affiliation systems, and secondary content blocks.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <span class="timeline-step">04</span>
+                <div class="timeline-content">
+                  <h6>Overlay Modals & Accessibility Suites</h6>
+                  <p>Transferred separate detail pages to interactive overlay views. Added modal accessibility, blur overlays, and keyboard listener loops.</p>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <span class="timeline-step">05</span>
+                <div class="timeline-content">
+                  <h6>Mobile Optimization & Cleanup</h6>
+                  <p>Constructed the mobile sticky spines system. Integrated the active social feeds, global cleanups, and eliminated duplicated elements.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- CASE STUDY MODAL OVERLAYS -->
@@ -1450,6 +1642,354 @@ const boards = [
       opacity: 0.85 !important;
     }
   }
+
+  /* Column 6: Specs Layout */
+  .specs-split-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+  }
+
+  .specs-sidebar {
+    position: sticky;
+    top: 0;
+  }
+
+  .specs-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* Specs Header Styles */
+  .specs-header {
+    border-bottom: 2.5px solid var(--header-color);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .sheet-number {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .sheet-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-3);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--header-color);
+    margin: 0.25rem 0 0.15rem 0;
+  }
+
+  .sheet-subtitle {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .header-stamp {
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--header-color);
+    border: 1.5px solid var(--header-color);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.75rem;
+  }
+
+  /* Section Layouts */
+  .sheet-section {
+    margin-bottom: 2rem;
+    padding-block: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: var(--step-1);
+    color: var(--header-color);
+    font-weight: 400;
+    border-bottom: 1px dashed rgba(61, 82, 69, 0.25);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title span {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    border: 1px solid var(--sand-color);
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+  }
+
+  /* Brand Palette Lists */
+  .subsection-title {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+  }
+
+  .palette-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .palette-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .color-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(61, 82, 69, 0.05);
+  }
+
+  .color-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .color-name {
+    font-weight: 500;
+    font-size: var(--step--1);
+  }
+
+  .color-hex {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--sand-color);
+  }
+
+  .color-use {
+    font-size: var(--step--2);
+    color: var(--text-color);
+    opacity: 0.75;
+    margin-top: 0.05rem;
+  }
+
+  /* Typography Spec */
+  .typography-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .typography-list li strong {
+    display: block;
+    font-size: var(--step--1);
+    font-weight: 500;
+    color: var(--sand-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.15rem;
+  }
+
+  .typography-list li span {
+    font-size: var(--step-0);
+    color: var(--header-color);
+  }
+
+  .font-preview {
+    font-size: var(--step--2);
+    opacity: 0.8;
+    margin-top: 0.15rem;
+  }
+
+  .serif-preview {
+    font-family: var(--font-serif);
+  }
+
+  .sans-preview {
+    font-family: var(--font-sans);
+  }
+
+  .mono-preview {
+    font-family: var(--font-mono);
+  }
+
+  /* Right Column features grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .feature-card {
+    background-color: var(--sand-light);
+    border: 1px solid var(--border-color);
+    padding: 1.25rem;
+    border-radius: 6px;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(61, 82, 69, 0.06);
+  }
+
+  .feature-card h5 {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    font-weight: 400;
+    color: var(--header-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: var(--step--1);
+    line-height: 1.5;
+    opacity: 0.9;
+    margin: 0;
+  }
+
+  /* Table Style */
+  .table-wrapper {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--sand-light);
+  }
+
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+    text-align: left;
+  }
+
+  .stack-table th {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    text-transform: uppercase;
+    color: var(--sand-color);
+    letter-spacing: 0.08em;
+    padding: 0.75rem 1rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .stack-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  .stack-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    background: rgba(61, 82, 69, 0.08);
+    color: var(--header-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7.5px;
+    top: 5px;
+    bottom: 5px;
+    width: 1.5px;
+    background-color: var(--border-color);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-step {
+    position: absolute;
+    left: -2rem;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    border: 2px solid var(--header-color);
+    font-family: var(--font-mono);
+    font-size: 0; /* visually hides number but accessible/keeps circle size */
+    z-index: 1;
+    transition: background-color 0.3s ease;
+  }
+
+  .timeline-item:hover .timeline-step {
+    background-color: var(--header-color);
+  }
+
+  .timeline-content h6 {
+    font-family: var(--font-serif);
+    font-size: var(--step-0);
+    font-weight: 400;
+    color: var(--header-color);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-content p {
+    font-size: var(--step--1);
+    opacity: 0.9;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 900px) {
+    .specs-split-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
 <script>
@@ -1532,7 +2072,8 @@ const boards = [
       'portfolio': '.pane-work',
       'services': '.pane-services',
       'about': '.pane-bio',
-      'contact': '.pane-contact'
+      'contact': '.pane-contact',
+      'specs': '.pane-specs'
     };
 
     const targetClass = paneMap[target.toLowerCase()];
