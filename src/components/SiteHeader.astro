@@ -13,7 +13,7 @@ import KubanyLogo from './KubanyLogo.astro';
       <a href="/?pane=about" class="nav-link" data-target-pane="pane-bio">About</a>
       <a href="/?pane=services" class="nav-link" data-target-pane="pane-services">Services</a>
       <a href="/?pane=contact" class="nav-link" data-target-pane="pane-contact">Contact</a>
-      <a href="/?pane=specs" class="nav-link" data-target-pane="pane-specs">Specs</a>
+      <a href="/?pane=specs" class="nav-link nav-specs-link" data-target-pane="pane-specs">Specs</a>
     </nav>
   </div>
 </header>
@@ -67,6 +67,9 @@ import KubanyLogo from './KubanyLogo.astro';
     }
     .nav-menu {
       gap: 1rem;
+    }
+    .nav-specs-link {
+      display: none !important;
     }
   }
 </style>

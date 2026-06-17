@@ -1511,6 +1511,10 @@ const boards = [
 
   /* Mobile responsive styling overrides */
   @media (max-width: 48rem) {
+    .pane-specs {
+      display: none !important;
+    }
+
     .portfolio-split-layout {
       flex-direction: column !important;
       gap: 2rem;
@@ -2265,7 +2269,6 @@ const boards = [
   }
 
   function setupFolioKeyboardControls() {
-    const columns = Array.from(document.querySelectorAll('.canvas-column'));
     const brandCol = document.querySelector('.pane-brand');
 
     function handleKeyDown(e) {
@@ -2274,22 +2277,25 @@ const boards = [
       if (activeOverlay) return;
 
       if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const visibleColumns = Array.from(document.querySelectorAll('.canvas-column')).filter(
+          (col) => (col as HTMLElement).offsetParent !== null
+        );
         const activeCol = document.querySelector('.canvas-column.active');
         if (!activeCol) return;
 
-        const index = columns.indexOf(activeCol);
+        const index = visibleColumns.indexOf(activeCol);
         if (index === -1) return;
 
         let nextIndex;
         if (e.key === 'ArrowRight') {
-          nextIndex = (index + 1) % columns.length;
+          nextIndex = (index + 1) % visibleColumns.length;
         } else {
-          nextIndex = (index - 1 + columns.length) % columns.length;
+          nextIndex = (index - 1 + visibleColumns.length) % visibleColumns.length;
         }
 
-        const targetCol = columns[nextIndex];
+        const targetCol = visibleColumns[nextIndex];
         if (targetCol) {
-          columns.forEach((c) => c.classList.remove('active'));
+          visibleColumns.forEach((c) => c.classList.remove('active'));
           targetCol.classList.add('active');
           targetCol.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
