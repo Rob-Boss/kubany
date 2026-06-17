@@ -526,20 +526,19 @@ const boards = [
     right: 1.5rem;
     width: 240px;
     height: 240px;
-    transform: translateY(-50%) translateX(60px) scale(0.9);
+    transform: translateY(-50%);
     opacity: 0;
     border-radius: 50%;
     border: 1.5px solid var(--header-color); /* Sharp, premium border ring */
     overflow: hidden;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.3, 1), 
-                opacity 0.6s ease;
+    transition: opacity 0.22s ease-out; /* Smooth default fade-out */
     z-index: 1;
     pointer-events: none;
   }
 
   .portfolio-circular-frame.active {
     opacity: 1;
-    transform: translateY(-50%) translateX(0) scale(1);
+    transition: opacity 0.12s ease-out; /* Fast fade-in */
   }
 
   .portfolio-circular-image {
@@ -1454,19 +1453,50 @@ const boards = [
 
 <script>
   // 1. Dynamic Hover-Revealed Project Circular Image Script
+  let activeFrame: HTMLElement | null = null;
+  let hoverTimeout: any = null;
+
   function setupProjectBgHover() {
-    document.querySelectorAll('[data-project-hover]').forEach((el) => {
+    const frames = document.querySelectorAll('.portfolio-circular-frame');
+    const menuLinks = document.querySelectorAll('[data-project-hover]');
+
+    menuLinks.forEach((el) => {
       const slug = el.getAttribute('data-project-hover');
-      const frame = document.getElementById(`frame-${slug}`);
+      const frame = document.getElementById(`frame-${slug}`) as HTMLElement;
 
       if (!frame) return;
 
       el.addEventListener('mouseenter', () => {
+        // Clear any pending pull-off fade-out timeout
+        if (hoverTimeout) {
+          clearTimeout(hoverTimeout);
+          hoverTimeout = null;
+        }
+
+        // Hide other active frames instantly during link-to-link switches
+        frames.forEach((f) => {
+          const htmlF = f as HTMLElement;
+          if (htmlF !== frame && htmlF.classList.contains('active')) {
+            htmlF.style.transition = 'none';
+            htmlF.classList.remove('active');
+            void htmlF.offsetHeight; // Force layout repaint
+            htmlF.style.transition = ''; // Restore default transition
+          }
+        });
+
+        // Add active for fast fade-in
         frame.classList.add('active');
+        activeFrame = frame;
       });
 
       el.addEventListener('mouseleave', () => {
-        frame.classList.remove('active');
+        // Smoothly fade out the image after a tiny delay on pull-off
+        hoverTimeout = setTimeout(() => {
+          if (activeFrame === frame) {
+            frame.classList.remove('active');
+            activeFrame = null;
+          }
+        }, 220); // 220ms beat
       });
     });
   }
