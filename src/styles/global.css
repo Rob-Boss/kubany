@@ -425,8 +425,10 @@ body.is-home .site-footer {
   top: 7.5rem;
 }
 
-/* Mobile folder stacking fallback */
 @media (max-width: 48rem) {
+  html, body {
+    overflow-x: visible !important;
+  }
   body.is-home {
     height: auto;
     overflow: visible;
@@ -455,8 +457,14 @@ body.is-home .site-footer {
     border-right: none;
     border-bottom: 0.5px solid var(--border-color);
     padding: 0 !important;
+    overflow: visible !important; /* Overwrite desktop overflow: hidden so sticky works */
+    scroll-margin-top: 120px !important; /* Correct offset when scrolling to section anchors */
   }
   .pane-tab-handle {
+    position: -webkit-sticky !important; /* Safari compatibility */
+    position: sticky !important;
+    top: 68px !important; /* Anchors just below the sticky site-header (approx 68px high) */
+    z-index: 90 !important; /* Sits beneath site-header (z-index 100) but above content */
     width: 100% !important;
     height: auto !important;
     min-width: 0 !important;
@@ -468,6 +476,7 @@ body.is-home .site-footer {
     border-right: none !important;
     border-bottom: 0.5px solid var(--border-color) !important;
     background-color: var(--sand-light) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
   }
   .handle-title {
     writing-mode: horizontal-tb !important;
