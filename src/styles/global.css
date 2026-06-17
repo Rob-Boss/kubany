@@ -445,9 +445,6 @@ body.is-home .site-footer {
     height: auto;
     overflow: visible;
   }
-  body.is-home .site-footer {
-    display: block !important;
-  }
   .canvas-column {
     display: flex;
     flex-direction: column !important; /* Stack vertically */
