@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import Analytics from '@vercel/analytics/astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import KubanyLogo from '../components/KubanyLogo.astro';
@@ -46,6 +47,7 @@ const isHome = pathname === '/' || pathname === '';
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="/assets/center-art-landscape.jpg" />
 
+    <Analytics />
     <ClientRouter />
 
     <!-- Inline Script to prevent preloader flash on internal page transitions -->
